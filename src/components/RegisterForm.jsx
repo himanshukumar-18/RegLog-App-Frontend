@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { axios } from '../index';
 import { RegSuccess } from "../index"
 
@@ -22,9 +21,12 @@ const RigesterForm = ({ logOnClickReg }) => {
       setEmail("");
       setPassword("");
 
-      setSuccess(true)
+      const apper = setTimeout(() => {
+          setSuccess(true)
+      }, 500);
 
-      clearTimeout(setSuccess(false), 1000)
+
+      clearTimeout(apper, 1000)
 
     } catch (error) {
       console.error("Error Fetching Data: ", error)
