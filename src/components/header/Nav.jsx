@@ -27,7 +27,7 @@ const Navbar = ({ regOnClick, logOnClick }) => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex space-x-6">
-            <div>
+            <div className="flex">
               <button className="text-[#CBD5E1] hover:text-[#F9FAFB] cursor-pointer hover:underline" onClick={regOnClick}>Register</button>
               <span className="text-[#CBD5E1]">/</span>
               <button className="text-[#CBD5E1] hover:text-[#F9FAFB] cursor-pointer hover:underline" onClick={logOnClick}>Login</button>
@@ -82,7 +82,7 @@ const Navbar = ({ regOnClick, logOnClick }) => {
           className="md:hidden px-4 pb-4 space-y-2"
           style={{ backgroundColor: "#0F172A" }}
         >
-          <div className="text-center">
+          <div className="text-center flex justify-center">
             <button className="text-[#CBD5E1] hover:text-[#F9FAFB] cursor-pointer hover:underline" onClick={regOnClick}>Register</button>
             <span className="text-[#CBD5E1]">/</span>
             <button className="text-[#CBD5E1] hover:text-[#F9FAFB] cursor-pointer hover:underline" onClick={logOnClick}>Login</button>

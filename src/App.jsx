@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import './App.css'
-import { Nav, Footer, Register, Login } from "./index"
+import { Nav, Footer, Register, Login} from "./index"
 
 function App() {
 
   const [regOn, setRegOn] = useState(false);
   const [logOn, setLogOn] = useState(false);
+  
 
   const regHandler = () => {
     setRegOn((prev) => !prev)
