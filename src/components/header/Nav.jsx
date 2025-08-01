@@ -83,9 +83,9 @@ const Navbar = ({ regOnClick, logOnClick }) => {
           style={{ backgroundColor: "#0F172A" }}
         >
           <div className="text-center flex justify-center">
-            <button className="text-[#CBD5E1] hover:text-[#F9FAFB] cursor-pointer hover:underline" onClick={regOnClick}>Register</button>
-            <span className="text-[#CBD5E1]">/</span>
-            <button className="text-[#CBD5E1] hover:text-[#F9FAFB] cursor-pointer hover:underline" onClick={logOnClick}>Login</button>
+            <button className="text-[#CBD5E1] hover:text-[#F9FAFB] cursor-pointer hover:underline navlink" onClick={regOnClick}>Register</button>
+            <span className="text-[#CBD5E1] navlink">/</span>
+            <button className="text-[#CBD5E1] hover:text-[#F9FAFB] cursor-pointer hover:underline navlink" onClick={logOnClick}>Login</button>
           </div>
         </div>
       )}

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { axios } from '../index';
-import { RegSuccess } from "../index"
+import { RegSuccess, Failed } from "../index"
 
-const RigesterForm = ({ logOnClickReg }) => {
+const RegisterForm = ({ logOnClickReg }) => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   const handelSubmit = async () => {
 
@@ -21,16 +22,17 @@ const RigesterForm = ({ logOnClickReg }) => {
       setEmail("");
       setPassword("");
 
-      const apper = setTimeout(() => {
-        setSuccess(true);
-      }, 500);
-
+      setSuccess(true);
       setTimeout(() => {
-        clearTimeout(apper);
-      }, 1000);
+        setSuccess(false);
+      }, 1500);
 
     } catch (error) {
       console.error("Error Fetching Data: ", error)
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 1500);
     }
 
   }
@@ -42,6 +44,14 @@ const RigesterForm = ({ logOnClickReg }) => {
         {
           success && (
             <RegSuccess />
+          )
+        }
+      </div>
+
+      <div>
+        {
+          error && (
+            <Failed />
           )
         }
       </div>
@@ -94,4 +104,4 @@ const RigesterForm = ({ logOnClickReg }) => {
 }
 
 
-export default RigesterForm;
+export default RegisterForm;

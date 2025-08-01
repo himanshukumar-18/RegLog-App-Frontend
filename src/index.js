@@ -4,6 +4,7 @@ import Footer from "./components/footer/Footer";
 import Register from "./components/RegisterForm";
 import Login from "./components/LoginForm";
 import RegSuccess from "./components/RegSuccess.jsx";
+import Failed from "./components/Failed.jsx";
 
 export {
     axios,
@@ -11,5 +12,6 @@ export {
     Footer,
     Register,
     Login,
-    RegSuccess
+    RegSuccess,
+    Failed
 }
