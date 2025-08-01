@@ -22,11 +22,12 @@ const RigesterForm = ({ logOnClickReg }) => {
       setPassword("");
 
       const apper = setTimeout(() => {
-          setSuccess(true)
+        setSuccess(true);
       }, 500);
 
-
-      clearTimeout(apper, 1000)
+      setTimeout(() => {
+        clearTimeout(apper);
+      }, 1000);
 
     } catch (error) {
       console.error("Error Fetching Data: ", error)
