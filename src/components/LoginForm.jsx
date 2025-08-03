@@ -24,12 +24,16 @@ const LoginForm = () => {
         console.error("Login failed:", response.data.message);
       }
       setSuccessMessage(true);
-      setErrorMessage(false);
+      setTimeout(() => {
+        setSuccessMessage(false);
+      }, 1500);
     } catch (error) {
       // Handle error (e.g., show error message)
       console.error("Error during login:", error);
-      setSuccessMessage(false);
       setErrorMessage(true);
+      setTimeout(() => {
+        setErrorMessage(false);
+      }, 1500);
     }
 
   }
