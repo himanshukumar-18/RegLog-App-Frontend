@@ -6,8 +6,8 @@ const LoginForm = () => {
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [successMessage, setSuccessMessage] = React.useState(true);
-  const [errorMessage, setErrorMessage] = React.useState(true);
+  const [successMessage, setSuccessMessage] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState(false);
 
 
   const handleSubmit = async (e) => {
@@ -23,9 +23,13 @@ const LoginForm = () => {
         // Handle login failure (e.g., show error message)
         console.error("Login failed:", response.data.message);
       }
+      setSuccessMessage(true);
+      setErrorMessage(false);
     } catch (error) {
       // Handle error (e.g., show error message)
       console.error("Error during login:", error);
+      setSuccessMessage(false);
+      setErrorMessage(true);
     }
 
   }
