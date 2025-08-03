@@ -43,7 +43,7 @@ const RegisterForm = ({ logOnClickReg }) => {
       <div>
         {
           success && (
-            <RegSuccess />
+            <RegSuccess message={"Registration Successful!"} />
           )
         }
       </div>
@@ -51,7 +51,7 @@ const RegisterForm = ({ logOnClickReg }) => {
       <div>
         {
           error && (
-            <Failed />
+            <Failed message={"Registration Failed!"} />
           )
         }
       </div>
