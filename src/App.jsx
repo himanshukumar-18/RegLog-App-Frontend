@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import './App.css'
-import { Nav, Footer, Register, Login} from "./index"
+import { Nav, Footer, Register, Login } from "./index"
+import { useDispatch } from 'react-redux';
+import { setUserFromToken } from './features/login/LoginSlice.js';
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
 
   const [regOn, setRegOn] = useState(false);
   const [logOn, setLogOn] = useState(false);
-  
+
 
   const regHandler = () => {
     setRegOn((prev) => !prev)
@@ -17,6 +20,18 @@ function App() {
     setLogOn((prev) => !prev)
     setRegOn(false)
   }
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decodedUser = jwtDecode(token);
+        dispatch(setUserFromToken(decodedUser));
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    }
+  }, [dispatch]);
 
   return (
     <>

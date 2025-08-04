@@ -110,6 +110,16 @@ const LoginForm = () => {
           {loading ? "Loading..." : "Submit"}
         </button>
       </form>
+
+      <div>
+        {
+          token ? (
+            <p className='text-center text-green-500'>You are logged in as {user?.name}</p>
+          ) : (
+            <p className='text-center text-red-500'>You are not logged in</p>
+          )
+        }
+      </div>
     </>
   );
 }
