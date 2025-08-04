@@ -5,6 +5,8 @@ import Register from "./components/RegisterForm";
 import Login from "./components/LoginForm";
 import RegSuccess from "./components/RegSuccess.jsx";
 import Failed from "./components/Failed.jsx";
+import LoginSlice from "./features/login/LoginSlice.js"
+import Store from "./app/Store.js"
 
 export {
     axios,
@@ -13,5 +15,7 @@ export {
     Register,
     Login,
     RegSuccess,
-    Failed
+    Failed,
+    LoginSlice,
+    Store
 }
