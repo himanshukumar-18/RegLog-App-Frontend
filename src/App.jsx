@@ -7,6 +7,8 @@ import { jwtDecode } from 'jwt-decode';
 
 function App() {
 
+  const dispatch = useDispatch();
+
   const [regOn, setRegOn] = useState(false);
   const [logOn, setLogOn] = useState(false);
 
