@@ -1,32 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axios } from "../../index.js";
 
+// Async Thunk for user login
 export const loginUser = createAsyncThunk(
-    "/login",
+    "login/user", // Action type prefix
     async ({ email, password }, { rejectWithValue }) => {
         try {
-
             const response = await axios.post('/login', { email, password });
+            console.log("Login response:", response.data);
 
-            //store the token in localStorage
-            localStorage.setItem("token", response.data.token)
+            // Store token in localStorage
+            localStorage.setItem("token", response.data.token);
 
-            return response.data
-
+            return response.data; // Should contain { user, token }
         } catch (error) {
-            return rejectWithValue(error.response?.data || error.message);
+            const message =
+                error.response?.data?.message || "Login failed. Please try again.";
+            return rejectWithValue(message);
         }
     }
-)
+);
 
-
+// Initial state
 const initialState = {
     user: null,
-    error: null,
+    token: localStorage.getItem("token") || null,
     loading: false,
-    token: localStorage.getItem("token") || null
+    error: null
 };
 
+// Slice
 const loginSlice = createSlice({
     name: "login",
     initialState,
@@ -38,7 +41,7 @@ const loginSlice = createSlice({
         },
         setUserFromToken: (state, action) => {
             state.user = action.payload;
-            state.token = localStorage.getItem("token")
+            state.token = localStorage.getItem("token");
         }
     },
     extraReducers: (builder) => {
@@ -58,7 +61,8 @@ const loginSlice = createSlice({
                 state.error = action.payload || "Login failed";
             });
     }
-})
+});
 
+// Export actions and reducer
 export const { logout, setUserFromToken } = loginSlice.actions;
 export default loginSlice.reducer;

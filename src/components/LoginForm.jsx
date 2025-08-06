@@ -1,127 +1,83 @@
-import React from 'react';
-// import { axios } from "../index"
-import { RegSuccess, Failed } from "../index"
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../features/login/LoginSlice.js';
+import { loginUser } from '../features/login/LoginSlice';
+import { RegSuccess, Failed } from '../index';
 
 const LoginForm = () => {
-
   const dispatch = useDispatch();
-  const { loading, error, user, token } = useSelector((state) => state.login)
+  const { loading, error, user, token } = useSelector((state) => state.login);
 
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [successMessage, setSuccessMessage] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState(false);
-
-  /*
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      // Perform login logic here, e.g., send a request to the server
-      try {
-        const response = await axios.post('/login', { email, password });
-        if (response.data.success) {
-          // Handle successful login (e.g., redirect or show success message)
-          console.log("Login successful:", response.data);
-        } else {
-          // Handle login failure (e.g., show error message)
-          console.error("Login failed:", response.data.message);
-        }
-  
-        localStorage.setItem("token", response.data.token);
-  
-        setEmail("");
-        setPassword("");
-  
-        setSuccessMessage(true);
-        setTimeout(() => {
-          setSuccessMessage(false);
-        }, 1500);
-      } catch (error) {
-        // Handle error (e.g., show error message)
-        console.error("Error during login:", error);
-        setErrorMessage(true);
-        setTimeout(() => {
-          setErrorMessage(false);
-        }, 1500);
-      }
-  
-    }
-  */
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }))
-  }
+    dispatch(loginUser({ email, password }));
+  };
 
-  React.useEffect(() => {
-    if (user || token) {
+  useEffect(() => {
+    if (user && token) {
       setSuccessMessage(true);
-      setTimeout(() => {
-        setSuccessMessage(false);
-      }, 1500);
-
+      setTimeout(() => setSuccessMessage(false), 1500);
+      setEmail("");
+      setPassword("");
     }
   }, [user, token]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (error) {
       setErrorMessage(true);
-      setTimeout(() => {
-        setErrorMessage(false);
-      }, 1500);
-    } else {
-      setErrorMessage(false);
+      setTimeout(() => setErrorMessage(false), 1500);
     }
   }, [error]);
 
   return (
     <>
-      <div>
-        {successMessage && <RegSuccess message="Login Successful!" />}
-        {errorMessage && <Failed message="Login Failed!" />}
-      </div>
+      {successMessage && <RegSuccess message="Login Successful!" />}
+      {errorMessage && <Failed message="Login Failed!" />}
 
       <form className="form duration-150" onSubmit={handleSubmit}>
         <p className="title">Login</p>
-        <p className="message">Login now and get full access to our app. </p>
+        <p className="message">Login now and get full access to our app.</p>
+
         <label>
           <input
-            required
-            placeholder='Email'
             type="email"
+            placeholder="Email"
+            required
             className="input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
+
         <label>
           <input
-            required
-            placeholder='Password'
             type="password"
+            placeholder="Password"
+            required
             className="input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type='submit' className="submit" disabled={loading}>
+
+        <button type="submit" className="submit" disabled={loading}>
           {loading ? "Loading..." : "Submit"}
         </button>
       </form>
 
-      <div>
-        {
-          token ? (
-            <p className='text-center text-green-500'>You are logged in as {user?.name}</p>
-          ) : (
-            <p className='text-center text-red-500'>You are not logged in</p>
-          )
-        }
+      <div className="text-center mt-4">
+        {token ? (
+          <p className="text-green-500">You are logged in as {user?.name}</p>
+        ) : (
+          <p className="text-red-500">You are not logged in</p>
+        )}
       </div>
     </>
   );
-}
+};
 
 export default LoginForm;
