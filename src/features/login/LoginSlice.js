@@ -6,6 +6,9 @@ export const loginUser = createAsyncThunk(
     "login/user", // Action type prefix
     async ({ email, password }, { rejectWithValue }) => {
         try {
+
+            console.log("Sending credentials:", email, password);
+
             const response = await axios.post('/login', { email, password });
             console.log("Login response:", response.data);
 

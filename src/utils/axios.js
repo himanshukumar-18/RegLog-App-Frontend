@@ -5,7 +5,11 @@ const base = import.meta.env.VITE_API_PROXY
     : "http://localhost:3000/api/v1/users";
 
 const instance = axios.create({
-    baseURL: base
+    baseURL: base,
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
 })
 
 export default instance
