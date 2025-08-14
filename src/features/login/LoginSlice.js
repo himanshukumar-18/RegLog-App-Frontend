@@ -12,10 +12,12 @@ export const loginUser = createAsyncThunk(
             const response = await axios.post('/login', { email, password });
             console.log("Login response:", response.data);
 
-            // Store token in localStorage
-            localStorage.setItem("token", response.data.token);
+            const { user, token } = response.data.data
 
-            return response.data; // Should contain { user, token }
+            // Store token in localStorage
+            localStorage.setItem("token", token);
+
+            return { user, token }
         } catch (error) {
             const message =
                 error.response?.data?.message || "Login failed. Please try again.";

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../features/login/LoginSlice';
+import { loginUser, logout } from '../features/login/LoginSlice';
 import { RegSuccess, Failed } from '../index';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { loading, error, user, token } = useSelector((state) => state.login);
+  const { loading, error, user, token, } = useSelector((state) => state.login);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +15,12 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setEmail("");
+    setPassword("");
   };
 
   useEffect(() => {
@@ -36,7 +42,7 @@ const LoginForm = () => {
   return (
     <>
       {successMessage && <RegSuccess message="Login Successful!" />}
-      {errorMessage && <Failed message="Login Failed!" />}
+      {errorMessage && <Failed message={error || "Login Failed!"} />}
 
       <form className="form duration-150" onSubmit={handleSubmit}>
         <p className="title">Login</p>
@@ -69,11 +75,22 @@ const LoginForm = () => {
         </button>
       </form>
 
-      <div className="text-center mt-4">
-        {token ? (
-          <p className="text-green-500">You are logged in as {user?.name}</p>
+      <div className="text-center mt-10">
+        {token && user ? (
+          <>
+            <div className='text-2xl'>
+              <p className="text-[#10B981]">You are logged in as {user?.name}</p>
+              <div className='mt-5'>
+                <button
+                  disabled={loading}
+                  type="button"
+                  className='bg-[#CBD5E1] text-[#F43F5E] px-4 py-2 rounded cursor-pointer hover:bg-[#F43F5E] hover:text-white transition-colors duration-300'
+                  onClick={handleLogout}>{loading ? "Logging out..." : "Logout"}</button>
+              </div>
+            </div>
+          </>
         ) : (
-          <p className="text-red-500">You are not logged in</p>
+          <p className="text-[#F43F5E] text-2xl">You are not logged in</p>
         )}
       </div>
     </>

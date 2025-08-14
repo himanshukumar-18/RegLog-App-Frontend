@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { axios } from '../index';
 import { RegSuccess, Failed } from "../index"
 
@@ -8,7 +8,8 @@ const RegisterForm = ({ logOnClickReg }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorDisplay, setErrorDisplay] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handelSubmit = async () => {
 
@@ -29,9 +30,13 @@ const RegisterForm = ({ logOnClickReg }) => {
 
     } catch (error) {
       console.error("Error Fetching Data: ", error)
-      setError(true);
+
+      const errorMessage = error.data?.data?.message || "Registration failed. Please try again.";
+
+      setErrorMessage(errorMessage);
+      setErrorDisplay(true);
       setTimeout(() => {
-        setError(false);
+        setErrorDisplay(false);
       }, 1500);
     }
 
@@ -50,8 +55,8 @@ const RegisterForm = ({ logOnClickReg }) => {
 
       <div>
         {
-          error && (
-            <Failed message={"Registration Failed!"} />
+          errorDisplay && (
+            <Failed message={errorMessage || "Registration Failed!"} />
           )
         }
       </div>
